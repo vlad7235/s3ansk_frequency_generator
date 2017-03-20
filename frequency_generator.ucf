@@ -1,0 +1,109 @@
+# Constraints for reference design 'frequency_generator'.
+#
+# Revision C of the Spartan-3E Starter Kit.
+#
+# Ken Chapman - Xilinx Ltd 
+#                          
+# 28th June 2006 // 19.03.2017 Version for Spartan3AN Starter Kit, V.Stolyarov
+#
+# Period constraint for 50MHz operation of control logic
+#
+NET "clk" PERIOD = 20.0ns HIGH 50%;
+#
+#
+# Period constraint for 200MHz operation of DDS phase accumulator
+#   (Specification used actually equates to 151.5MHz)
+#
+NET "dds_clk" PERIOD = 5.0ns HIGH 50%;
+#
+# Period constraint for up to 200MHz operation of frequency divider
+#   In practice this frequency is variable and only reaches 200MHz as a maximum.
+#   (Specification used actually equates to 151.5MHz)
+#
+NET "synth_clk" PERIOD = 5.0ns HIGH 50%;
+#
+#
+# IMPORTANT NOTE - All paths between clock domains are non critical.
+# They are not given timing specifications and therefore can be as
+# slow as they like.
+#
+#
+#
+# Lock the position of the DCM used in frequency aligned mode so that the special 
+# settings can be applied in BITGEN.
+#
+INST "frequency_aligned_dcm" LOC=DCM_X1Y0;
+#
+#
+#
+# I/O contraints
+#
+#
+#
+# soldered 50MHz Clock.
+# 
+NET "clk" LOC = "E12" | IOSTANDARD = LVCMOS33 ;
+#
+#
+# SMA socket.
+# 
+NET "sma_out" LOC = "U12" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 4;
+#
+#
+# Simple LEDs 
+# Require only 3.5mA. 
+#
+NET "led<0>" LOC = "R20" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8 ;
+NET "led<1>" LOC = "T19" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8 ;
+NET "led<2>" LOC = "U20" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8 ;
+NET "led<3>" LOC = "U19" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8 ;
+NET "led<4>" LOC = "V19" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8 ;
+NET "led<5>" LOC = "V20" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8 ;
+NET "led<6>" LOC = "Y22" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8 ;
+NET "led<7>" LOC = "W21" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8 ;
+#
+#
+# LCD display
+# Very slow so can use lowest drive strength. 
+#
+NET "lcd_rs"   LOC = "Y14"  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW ;
+NET "lcd_rw"   LOC = "W13"  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW ;
+NET "lcd_e"    LOC = "AB4"  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW ;
+NET "lcd_d<4>" LOC = "AA12" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW ;
+NET "lcd_d<5>" LOC = "Y16"  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW ;
+NET "lcd_d<6>" LOC = "AB16" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW ;
+NET "lcd_d<7>" LOC = "Y15"  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW ;
+#
+# lcd_d<0> - lcd_d<3> should be high in 4bit mode (only for Spartan3AN SK)
+NET "lcd_dblow<0>" LOC = "AB12" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW ;
+NET "lcd_dblow<1>" LOC = "AB17" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW ;
+NET "lcd_dblow<2>" LOC = "AB18" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW ;
+NET "lcd_dblow<3>" LOC = "Y13"  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW ;
+
+
+# Strata Flash (only for Spartan3E SK need to disable to use LCD display) 
+#
+#NET "strataflash_oe" LOC = "C18" | IOSTANDARD = LVTTL | SLEW = SLOW | DRIVE = 2;
+#NET "strataflash_ce" LOC = "D16" | IOSTANDARD = LVTTL | SLEW = SLOW | DRIVE = 2;
+#NET "strataflash_we" LOC = "D17" | IOSTANDARD = LVTTL | SLEW = SLOW | DRIVE = 2;
+#
+#
+# Rotary encoder. 
+#   Rotation contacts require pull UP resistors to provide High level.
+#   Press contact requires pull DOWN resistor to provide Low when not pressed..
+#
+NET "rotary_a"     LOC = "T13" | IOSTANDARD = LVCMOS33 | PULLUP ;
+NET "rotary_b"     LOC = "R14" | IOSTANDARD = LVCMOS33 | PULLUP;
+NET "rotary_press" LOC = "R13" | IOSTANDARD = LVCMOS33 | PULLDOWN;
+#
+#
+# Simple I/O pins on connector J4
+#
+NET "simple<9>"  LOC = "V14" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8;
+NET "simple<10>" LOC = "V15" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8;
+NET "simple<11>" LOC = "W16" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8;
+NET "simple<12>" LOC = "V16" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8;
+#
+#
+# End of File
+#
