@@ -7,7 +7,7 @@ User constraints file and top level VHDL module are changed w.r.t. Spartan-3AN S
 
 ### Prerequisites
 
-Download Xilinx PicoBlaze files for Spartan-3 device family from https://www.xilinx.com/ipcenter/processor_central/picoblaze/member/KCPSM3.zip (registration requited),
+Download Xilinx PicoBlaze files for Spartan-3 device family from https://www.xilinx.com/ipcenter/processor_central/picoblaze/member/KCPSM3.zip (registration required),
 extract kcpsm3.vhd
 
 ### Creating ISE project
